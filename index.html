@@ -1,0 +1,823 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn with Vijayan</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f5ff;
+    color: #172554;
+}
+
+header {
+    background: #123c91;
+    color: white;
+    padding: 25px 15px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #dbeafe;
+}
+
+nav {
+    background: white;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 8px #0001;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 11px 17px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.container {
+    max-width: 1050px;
+    margin: 25px auto;
+    padding: 15px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px #0000000b;
+}
+
+h2 {
+    color: #1d4ed8;
+    margin-bottom: 15px;
+}
+
+h3 {
+    margin: 18px 0 10px;
+    color: #1e40af;
+}
+
+p {
+    line-height: 1.7;
+    margin-bottom: 12px;
+}
+
+ul {
+    padding-left: 22px;
+    line-height: 2;
+}
+
+code {
+    background: #dbeafe;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+
+pre {
+    background: #0f172a;
+    color: #93c5fd;
+    padding: 18px;
+    border-radius: 10px;
+    overflow-x: auto;
+    line-height: 1.7;
+    margin: 12px 0;
+}
+
+.lesson-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+}
+
+.lesson-item {
+    background: #eff6ff;
+    padding: 15px;
+    border: 1px solid #bfdbfe;
+    border-radius: 9px;
+    color: #1e40af;
+    text-align: left;
+    cursor: pointer;
+}
+
+.lesson-item:hover,
+.lesson-item.active {
+    background: #2563eb;
+    color: white;
+}
+
+.lesson-item span {
+    display: block;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.question {
+    background: #eff6ff;
+    padding: 17px;
+    border-radius: 10px;
+    margin: 12px 0;
+}
+
+.question input {
+    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #93c5fd;
+    border-radius: 7px;
+    margin: 10px 0;
+}
+
+.feedback {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.progress-bg {
+    background: #dbeafe;
+    height: 10px;
+    border-radius: 10px;
+    margin: 12px 0;
+}
+
+.progress {
+    background: #2563eb;
+    height: 10px;
+    width: 0%;
+    border-radius: 10px;
+}
+
+footer {
+    background: #123c91;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+}
+
+footer p {
+    margin: 5px;
+}
+
+@media(max-width:600px) {
+    header h1 {font-size: 25px;}
+    .card {padding: 18px;}
+    nav {position: static;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🐍 Learn with Vijayan</h1>
+    <p>From Beginner to Python Developer</p>
+</header>
+
+<nav>
+    <button onclick="showHome()">Home</button>
+    <button onclick="showLessons()">All Lessons</button>
+    <button onclick="showAbout()">About Me</button>
+</nav>
+
+<div class="container" id="app"></div>
+
+<footer>
+    <h3 style="color:white">Learn with Vijayan</h3>
+    <p>Learn Today. Build Tomorrow.</p>
+    <p>Created by Vijayan © 2026</p>
+</footer>
+
+<script>
+
+// ALL PYTHON LESSONS
+
+const lessons = [
+
+{
+title:"Introduction to Python",
+desc:"Python is a high-level, general-purpose programming language. It is beginner-friendly and used in web development, AI, automation and data science.",
+code:'print("Hello, World!")',
+explain:"print() displays information on the screen.",
+questions:["What is Python?","Which function displays output?"],
+answers:["programming language","print"]
+},
+
+{
+title:"Installing Python",
+desc:"To write Python programs, install Python from python.org. You can write code using IDLE or VS Code.",
+code:'print("Python installed successfully!")',
+explain:"After installation, check Python using python --version in the terminal.",
+questions:["Where can you download Python?","Which command checks the Python version?"],
+answers:["python.org","python --version"]
+},
+
+{
+title:"Variables",
+desc:"Variables are names used to store data. Python creates a variable when you assign a value to it.",
+code:'name = "Vijayan"\nage = 14\nprint(name)\nprint(age)',
+explain:"The variable name stores text and age stores a number.",
+questions:["What is a variable?","Which symbol assigns a value?"],
+answers:["stores data","="]
+},
+
+{
+title:"Data Types",
+desc:"Data types describe the kind of value stored in a variable. Common types are int, float, str and bool.",
+code:'age = 14\nheight = 5.5\nname = "Vijayan"\nis_student = True\n\nprint(type(age))',
+explain:"int means integer, float means decimal, str means text and bool means True or False.",
+questions:["Which type stores whole numbers?","Which type stores True or False?"],
+answers:["int","bool"]
+},
+
+{
+title:"Type Conversion",
+desc:"Type conversion changes a value from one data type to another.",
+code:'age = "14"\nnumber = int(age)\nprint(number + 1)',
+explain:"int(), float(), str() and bool() are common conversion functions.",
+questions:["Which function converts to integer?","Which function converts to text?"],
+answers:["int()","str()"]
+},
+
+{
+title:"Input and Output",
+desc:"input() gets information from the user. print() displays information.",
+code:'name = input("Enter your name: ")\nprint("Welcome", name)',
+explain:"input() normally returns a string, even when the user types digits.",
+questions:["Which function accepts user input?","Which function displays output?"],
+answers:["input()","print()"]
+},
+
+{
+title:"Operators",
+desc:"Operators perform calculations and comparisons. Python has arithmetic, comparison, logical and assignment operators.",
+code:'a = 10\nb = 3\nprint(a + b)\nprint(a > b)\nprint(a % b)',
+explain:"+ adds, - subtracts, * multiplies, / divides, % gives remainder.",
+questions:["Which operator is used for multiplication?","Which operator gives the remainder?"],
+answers:["*","%"]
+},
+
+{
+title:"If Statement",
+desc:"An if statement executes a block of code when its condition is True.",
+code:'age = 18\n\nif age >= 18:\n    print("Adult")',
+explain:"The code inside if runs only when the condition is true. Indentation matters.",
+questions:["Which keyword starts a condition?","What happens when the condition is False?"],
+answers:["if","block does not execute"]
+},
+
+{
+title:"If Else",
+desc:"if and else allow a program to choose between two paths.",
+code:'number = 5\n\nif number > 0:\n    print("Positive")\nelse:\n    print("Not positive")',
+explain:"else executes when the if condition is False.",
+questions:["Which keyword handles the alternative path?","Can an if statement have an else block?"],
+answers:["else","yes"]
+},
+
+{
+title:"Elif Statement",
+desc:"elif means else if. It checks another condition when earlier conditions are False.",
+code:'mark = 85\n\nif mark >= 90:\n    print("A")\nelif mark >= 80:\n    print("B")\nelse:\n    print("C")',
+explain:"You can use multiple elif conditions.",
+questions:["What is the full meaning of elif?","Can we use multiple elif blocks?"],
+answers:["else if","yes"]
+},
+
+{
+title:"Nested If",
+desc:"A nested if is an if statement placed inside another if statement.",
+code:'age = 20\nhas_id = True\n\nif age >= 18:\n    if has_id:\n        print("Allowed")',
+explain:"Nested conditions help check multiple related conditions.",
+questions:["What is a nested if?","Can an if be placed inside another if?"],
+answers:["if inside another if","yes"]
+},
+
+{
+title:"While Loop",
+desc:"A while loop repeats a block of code as long as its condition is True.",
+code:'i = 1\n\nwhile i <= 5:\n    print(i)\n    i += 1',
+explain:"Always make sure the condition can eventually become False.",
+questions:["Which loop uses a condition?","Which statement increases i here?"],
+answers:["while","i += 1"]
+},
+
+{
+title:"For Loop",
+desc:"A for loop repeats code for each item in a sequence, such as a list or string.",
+code:'for name in ["A","B","C"]:\n    print(name)',
+explain:"The loop variable receives each item one at a time.",
+questions:["Which loop is used to iterate over a sequence?","What does the loop variable receive?"],
+answers:["for","each item"]
+},
+
+{
+title:"Range Function",
+desc:"range() generates a sequence of integers, commonly used with for loops.",
+code:'for i in range(1, 6):\n    print(i)',
+explain:"The stop value is excluded. This example prints 1 to 5.",
+questions:["Which function generates a number sequence?","Is the stop value included?"],
+answers:["range()","no"]
+},
+
+{
+title:"Break Statement",
+desc:"break immediately exits the nearest loop.",
+code:'for i in range(1, 6):\n    if i == 3:\n        break\n    print(i)',
+explain:"The loop stops when i becomes 3.",
+questions:["Which keyword exits a loop?","Does break stop the nearest loop?"],
+answers:["break","yes"]
+},
+
+{
+title:"Continue Statement",
+desc:"continue skips the remaining code in the current iteration and moves to the next iteration.",
+code:'for i in range(1, 6):\n    if i == 3:\n        continue\n    print(i)',
+explain:"Here, 3 is skipped but the loop continues.",
+questions:["Which keyword skips an iteration?","Does continue end the whole loop?"],
+answers:["continue","no"]
+},
+
+{
+title:"Pass Statement",
+desc:"pass is a placeholder statement. It does nothing when executed.",
+code:'for i in range(3):\n    pass\n\nprint("Finished")',
+explain:"It is useful when you want to write a block later.",
+questions:["Which keyword does nothing?","Is pass a placeholder?"],
+answers:["pass","yes"]
+},
+
+{
+title:"Strings",
+desc:"A string is a sequence of characters enclosed in quotation marks.",
+code:'name = "Python"\nprint(name)\nprint(name[0])',
+explain:"String indexing starts at zero. Strings are immutable.",
+questions:["Which data type stores text?","What is the first index?"],
+answers:["string","0"]
+},
+
+{
+title:"String Slicing",
+desc:"Slicing extracts a portion of a string using start, stop and step values.",
+code:'word = "Python"\nprint(word[0:3])\nprint(word[::-1])',
+explain:"The stop index is excluded. A step of -1 reverses the string.",
+questions:["Which symbol separates slice positions?","What does [::-1] do?"],
+answers:[":","reverses"]
+},
+
+{
+title:"String Methods",
+desc:"String methods are built-in operations used to work with text.",
+code:'text = "python programming"\nprint(text.upper())\nprint(text.capitalize())\nprint(text.replace("python", "Java"))',
+explain:"Common methods include upper(), lower(), strip(), replace() and split().",
+questions:["Which method converts text to uppercase?","Which method replaces text?"],
+answers:["upper()","replace()"]
+},
+
+{
+title:"Lists",
+desc:"A list stores multiple items in one variable. Lists are ordered and changeable.",
+code:'fruits = ["Apple", "Mango", "Orange"]\nfruits.append("Banana")\nprint(fruits)',
+explain:"Important methods include append(), insert(), remove(), pop() and sort().",
+questions:["Which brackets create a list?","Which method adds an item at the end?"],
+answers:["[]","append()"]
+},
+
+{
+title:"Tuples",
+desc:"A tuple stores multiple items. Tuples are ordered but cannot be changed after creation.",
+code:'colors = ("Red", "Blue", "Green")\nprint(colors[0])',
+explain:"Tuples are commonly created using parentheses.",
+questions:["Are tuples changeable?","Which brackets commonly create tuples?"],
+answers:["no","()"]
+},
+
+{
+title:"Sets",
+desc:"A set is an unordered collection of unique items. Duplicate values are removed.",
+code:'numbers = {1, 2, 2, 3}\nprint(numbers)',
+explain:"Sets are useful when you need unique values.",
+questions:["Do sets store duplicate values?","Which brackets create a set?"],
+answers:["no","{}"]
+},
+
+{
+title:"Dictionaries",
+desc:"A dictionary stores information in key-value pairs.",
+code:'student = {\n    "name": "Vijayan",\n    "age": 14\n}\nprint(student["name"])',
+explain:"Dictionaries use keys to access their values. Use get(), keys(), values() and items().",
+questions:["What two things make up a dictionary entry?","Which method gets a value safely?"],
+answers:["key value","get()"]
+},
+
+{
+title:"Functions",
+desc:"A function is a reusable block of code. It is created using the def keyword.",
+code:'def greet():\n    print("Hello Vijayan!")\n\ngreet()',
+explain:"Functions help organize code and avoid repetition.",
+questions:["Which keyword defines a function?","How do you run a function?"],
+answers:["def","call it"]
+},
+
+{
+title:"Parameters and Arguments",
+desc:"Parameters are variables in a function definition. Arguments are the actual values passed when calling it.",
+code:'def greet(name):\n    print("Hello", name)\n\ngreet("Vijayan")',
+explain:"Here, name is a parameter and Vijayan is an argument.",
+questions:["What is a parameter?","What is passed during a function call?"],
+answers:["variable in function definition","argument"]
+},
+
+{
+title:"Return Statement",
+desc:"return sends a result back from a function and ends that function call.",
+code:'def add(a, b):\n    return a + b\n\nresult = add(5, 3)\nprint(result)',
+explain:"You can store a returned value in a variable.",
+questions:["Which keyword sends back a result?","Does return end the current function call?"],
+answers:["return","yes"]
+},
+
+{
+title:"Modules",
+desc:"A module is a Python file containing reusable code, functions or variables. import brings a module into your program.",
+code:'import math\n\nprint(math.sqrt(25))\nprint(math.pi)',
+explain:"Python includes modules such as math, random and datetime.",
+questions:["Which keyword imports a module?","Which module provides pi and sqrt()?"],
+answers:["import","math"]
+},
+
+{
+title:"Math Module",
+desc:"The math module provides mathematical functions and constants.",
+code:'import math\n\nprint(math.sqrt(16))\nprint(math.factorial(5))\nprint(math.ceil(4.2))',
+explain:"Other functions include floor(), fabs(), pow() and constants such as pi.",
+questions:["Which function finds square root?","Which constant represents pi?"],
+answers:["sqrt()","pi"]
+},
+
+{
+title:"Random Module",
+desc:"The random module generates pseudo-random values and selects random items.",
+code:'import random\n\nprint(random.randint(1, 10))\nprint(random.choice(["Red", "Blue"]))',
+explain:"Common functions include randint(), random(), uniform(), choice() and shuffle().",
+questions:["Which function chooses a random item?","Which function returns a random integer in a range?"],
+answers:["choice()","randint()"]
+},
+
+{
+title:"Date and Time",
+desc:"The datetime module helps work with dates and times.",
+code:'import datetime\n\nnow = datetime.datetime.now()\nprint(now)\nprint(now.date())',
+explain:"Use datetime.now() to get the current date and time.",
+questions:["Which module handles dates and times?","Which method gets the current date and time?"],
+answers:["datetime","now()"]
+},
+
+{
+title:"File Handling",
+desc:"File handling allows Python to create, read, write and append files.",
+code:'with open("notes.txt", "w") as file:\n    file.write("Hello Python!")\n\nwith open("notes.txt", "r") as file:\n    print(file.read())',
+explain:"Common modes are r for read, w for write and a for append.",
+questions:["Which mode reads a file?","Which mode adds content at the end?"],
+answers:["r","a"]
+},
+
+{
+title:"Exception Handling",
+desc:"Exception handling prevents a program from stopping unexpectedly when an error occurs.",
+code:'try:\n    number = int(input("Enter number: "))\n    print(number)\nexcept ValueError:\n    print("Please enter a valid number")',
+explain:"try contains risky code. except handles a matching error. finally can run cleanup code.",
+questions:["Which keyword handles an exception?","Which block contains risky code?"],
+answers:["except","try"]
+},
+
+{
+title:"Object Oriented Programming",
+desc:"OOP organizes programs using classes and objects. A class is a blueprint; an object is an instance of a class.",
+code:'class Student:\n    def greet(self):\n        print("Hello!")\n\nstudent = Student()\nstudent.greet()',
+explain:"OOP includes concepts such as inheritance, encapsulation and polymorphism.",
+questions:["Which keyword creates a class?","What is an object?"],
+answers:["class","instance of a class"]
+},
+
+{
+title:"Inheritance",
+desc:"Inheritance allows one class to reuse properties and methods from another class.",
+code:'class Animal:\n    def speak(self):\n        print("Animal sound")\n\nclass Dog(Animal):\n    pass\n\nd = Dog()\nd.speak()',
+explain:"Dog inherits the speak() method from Animal.",
+questions:["What is inheritance?","Which class inherits in this example?"],
+answers:["reuse class features","dog"]
+},
+
+{
+title:"Lambda Functions",
+desc:"A lambda is a small anonymous function written in one expression.",
+code:'square = lambda x: x * x\nprint(square(5))',
+explain:"Lambda functions are useful for short operations.",
+questions:["Which keyword creates a lambda?","Can a lambda contain multiple statements?"],
+answers:["lambda","no"]
+},
+
+{
+title:"Map and Filter",
+desc:"map() applies a function to each item. filter() keeps items that satisfy a condition.",
+code:'numbers = [1, 2, 3, 4]\n\nsquares = list(map(lambda x: x*x, numbers))\nevens = list(filter(lambda x: x%2 == 0, numbers))\n\nprint(squares)\nprint(evens)',
+explain:"Both commonly work with iterables and return iterator-like results in Python 3.",
+questions:["Which function transforms each item?","Which function selects matching items?"],
+answers:["map()","filter()"]
+},
+
+{
+title:"Generators",
+desc:"Generators produce values one at a time, which can save memory when working with large sequences.",
+code:'def count():\n    yield 1\n    yield 2\n    yield 3\n\nfor number in count():\n    print(number)',
+explain:"yield produces a value and pauses the generator until the next request.",
+questions:["Which keyword produces a generator value?","Do generators produce values one at a time?"],
+answers:["yield","yes"]
+},
+
+{
+title:"Decorators",
+desc:"A decorator adds or changes the behavior of a function without directly changing its original code.",
+code:'def decorator(func):\n    def wrapper():\n        print("Before")\n        func()\n        print("After")\n    return wrapper\n\n@decorator\ndef hello():\n    print("Hello!")\n\nhello()',
+explain:"Decorators are often used for logging, timing and access control.",
+questions:["Which symbol is used for decorator syntax?","What does a decorator modify or extend?"],
+answers:["@","function behavior"]
+},
+
+{
+title:"Regular Expressions",
+desc:"Regular expressions (regex) are patterns used to search and match text.",
+code:'import re\n\ntext = "My number is 12345"\nresult = re.findall(r"\\d+", text)\nprint(result)',
+explain:"The re module provides search(), findall(), sub() and other pattern operations.",
+questions:["Which module supports regex?","What does \\d match?"],
+answers:["re","digit"]
+},
+
+{
+title:"Virtual Environments",
+desc:"A virtual environment creates an isolated Python environment for a project and its dependencies.",
+code:'python -m venv myenv',
+explain:"Activate the environment using the appropriate command for your operating system.",
+questions:["Why use a virtual environment?","Which module creates one?"],
+answers:["isolate dependencies","venv"]
+},
+
+{
+title:"Working with JSON",
+desc:"JSON is a common format for storing and exchanging structured data. Python's json module can encode and decode it.",
+code:'import json\n\nstudent = {"name": "Vijayan", "age": 14}\ndata = json.dumps(student)\nprint(data)',
+explain:"dumps() converts Python data to a JSON string. loads() parses a JSON string.",
+questions:["Which module handles JSON?","Which function converts a Python object to a JSON string?"],
+answers:["json","dumps()"]
+},
+
+{
+title:"Python Projects",
+desc:"Projects help you apply your Python knowledge. Start small and gradually build larger programs.",
+code:'# Simple calculator\na = float(input("First number: "))\nb = float(input("Second number: "))\nprint("Sum:", a + b)',
+explain:"Practice by building calculators, quiz apps, study planners and other useful tools.",
+questions:["Why do we build projects?","What should beginners build first?"],
+answers:["apply knowledge","small projects"]
+}
+
+];
+
+// APP ELEMENT
+
+const app = document.getElementById("app");
+let currentLesson = 0;
+let completed = [];
+
+// HOME PAGE
+
+function showHome() {
+    app.innerHTML = `
+    <div class="card">
+        <h2>Welcome to Learn with Vijayan! 👋</h2>
+        <h3>Learn Python from Zero to Advanced</h3>
+        <p>
+        Welcome to my Python learning website.
+        Here you can learn Python step by step with
+        simple explanations, code examples and practice questions.
+        </p>
+        <p>
+        Whether you are a beginner or an experienced learner,
+        start your Python journey here!
+        </p>
+        <button onclick="openLesson(0)">Start Learning 🚀</button>
+    </div>
+
+    <div class="card">
+        <h2>📚 Your Python Course</h2>
+        <p>Total Lessons: ${lessons.length}</p>
+        <p>Completed Lessons: ${completed.length}</p>
+        <div class="progress-bg">
+            <div class="progress" style="width:${completed.length/lessons.length*100}%"></div>
+        </div>
+        <button onclick="showLessons()">Explore All Lessons</button>
+    </div>
+
+    <div class="card">
+        <h2>🎯 What You Will Learn</h2>
+        <ul>
+            <li>Python Basics</li>
+            <li>Conditions and Loops</li>
+            <li>Strings and Collections</li>
+            <li>Functions and Modules</li>
+            <li>Object Oriented Programming</li>
+            <li>Advanced Python</li>
+            <li>Real-world Projects</li>
+        </ul>
+    </div>`;
+}
+
+// ABOUT PAGE
+
+function showAbout() {
+    app.innerHTML = `
+    <div class="card">
+        <h2>👨‍💻 About Me</h2>
+        <h3>Hi, I'm Vijayan!</h3>
+        <p>
+        I'm a 14-year-old student who loves programming,
+        science and technology.
+        </p>
+        <p>
+        My goal is to become a Software Engineer.
+        I created this website to share my Python learning
+        journey and help other beginners learn programming.
+        </p>
+        <h3>My Mission</h3>
+        <p>To make Python learning simple, interesting and accessible to everyone.</p>
+        <h3>My Motto</h3>
+        <p><b>Learn Today. Build Tomorrow.</b></p>
+    </div>`;
+}
+
+// LESSON LIST
+
+function showLessons() {
+    let html = `
+    <div class="card">
+        <h2>📚 Python Lessons A to Z</h2>
+        <p>Choose a lesson to start learning.</p>
+        <div class="lesson-list">`;
+
+    lessons.forEach((lesson, index) => {
+        html += `
+        <button class="lesson-item" onclick="openLesson(${index})">
+            ${completed.includes(index) ? "✅" : "📘"}
+            Lesson ${index+1}
+            <span>${lesson.title}</span>
+        </button>`;
+    });
+
+    html += `</div></div>`;
+    app.innerHTML = html;
+}
+
+// OPEN INDIVIDUAL LESSON
+
+function openLesson(index) {
+    currentLesson = index;
+    const lesson = lessons[index];
+
+    app.innerHTML = `
+    <div class="card">
+        <p>Lesson ${index+1} of ${lessons.length}</p>
+        <div class="progress-bg">
+            <div class="progress" style="width:${(index+1)/lessons.length*100}%"></div>
+        </div>
+
+        <h2>${lesson.title}</h2>
+        <h3>📖 Explanation</h3>
+        <p>${lesson.desc}</p>
+
+        <h3>💻 Code Example</h3>
+        <pre>${escapeHTML(lesson.code)}</pre>
+
+        <h3>🧠 Understand the Code</h3>
+        <p>${lesson.explain}</p>
+
+        <h3>✍️ Practice Questions</h3>
+
+        ${lesson.questions.map((q,i)=>`
+            <div class="question">
+                <b>Q${i+1}. ${q}</b>
+                <input id="answer${i}" placeholder="Type your answer">
+                <p id="feedback${i}" class="feedback"></p>
+            </div>
+        `).join("")}
+
+        <button onclick="checkAnswers()">Check Answers</button>
+        <p id="score"></p>
+        <br>
+
+        <button onclick="showLessons()">All Lessons</button>
+        <button onclick="previousLesson()" ${index===0?"disabled":""}>Previous</button>
+        <button onclick="nextLesson()" ${index===lessons.length-1?"disabled":""}>Next Lesson →</button>
+    </div>`;
+}
+
+// PROTECT CODE EXAMPLES IN HTML
+
+function escapeHTML(value) {
+    return value.replace(/[&<>"']/g, char => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+    })[char]);
+}
+
+// CHECK PRACTICE ANSWERS
+
+function checkAnswers() {
+    const lesson = lessons[currentLesson];
+    let score = 0;
+
+    lesson.answers.forEach((answer,i) => {
+        let userAnswer = document.getElementById("answer"+i).value
+            .trim().toLowerCase();
+
+        let correctAnswer = answer.toLowerCase();
+
+        if(userAnswer === correctAnswer) {
+            score++;
+            document.getElementById("feedback"+i).innerText = "✅ Correct!";
+            document.getElementById("feedback"+i).style.color = "green";
+        } else {
+            document.getElementById("feedback"+i).innerText =
+                "❌ Try again. Review the lesson explanation.";
+            document.getElementById("feedback"+i).style.color = "red";
+        }
+    });
+
+    document.getElementById("score").innerText =
+        "Your Score: " + score + " / " + lesson.answers.length;
+
+    if(score === lesson.answers.length) {
+        if(!completed.includes(currentLesson)) {
+            completed.push(currentLesson);
+        }
+        document.getElementById("score").innerText += " 🎉 Lesson Completed!";
+    }
+}
+
+// NAVIGATION
+
+function nextLesson() {
+    if(currentLesson < lessons.length-1) {
+        openLesson(currentLesson+1);
+    }
+}
+
+function previousLesson() {
+    if(currentLesson > 0) {
+        openLesson(currentLesson-1);
+    }
+}
+
+// START WEBSITE
+
+showHome();
+
+</script>
+
+</body>
+</html>
